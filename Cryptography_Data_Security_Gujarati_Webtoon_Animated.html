@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔐 ક્રિપ્ટોગ્રાફી અને ડેટા સિક્યોરિટી — વેબટૂન</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;500;600;700;800&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Noto Sans Gujarati',sans-serif;
+  background:linear-gradient(135deg,#07152e,#102b4c 45%,#071b32);
+  color:#eef7ff; overflow-x:hidden;
+}
+body:before{
+  content:""; position:fixed; inset:0; pointer-events:none; opacity:.12;
+  background-image:radial-gradient(#7dd3fc 1px,transparent 1px);
+  background-size:28px 28px;
+}
+header{
+  min-height:100vh; display:flex; align-items:center; justify-content:center;
+  padding:30px 18px; position:relative; overflow:hidden;
+}
+.glow{position:absolute;border-radius:50%;filter:blur(3px);opacity:.35;animation:float 6s ease-in-out infinite}
+.g1{width:260px;height:260px;background:#00c2ff;top:8%;left:-80px}
+.g2{width:330px;height:330px;background:#7c3aed;bottom:-130px;right:-80px;animation-delay:1s}
+.hero{
+  width:min(1050px,100%); text-align:center; position:relative; z-index:2;
+  padding:50px 25px; border:1px solid rgba(255,255,255,.18);
+  border-radius:35px; background:rgba(255,255,255,.08); backdrop-filter:blur(14px);
+  box-shadow:0 25px 70px rgba(0,0,0,.35);
+}
+.lock{font-size:80px;animation:pulse 2s infinite}
+h1{font-size:clamp(2rem,6vw,4.5rem);margin:12px 0;background:linear-gradient(90deg,#67e8f9,#fff,#c4b5fd);-webkit-background-clip:text;color:transparent}
+.subtitle{font-size:clamp(1.1rem,3vw,1.7rem);color:#bae6fd}
+.badges{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:25px 0}
+.badge{padding:10px 17px;border-radius:999px;background:rgba(14,165,233,.16);border:1px solid rgba(125,211,252,.3)}
+.start{display:inline-block;margin-top:18px;padding:14px 28px;border-radius:999px;background:#22d3ee;color:#042f3d;text-decoration:none;font-weight:800;box-shadow:0 8px 25px rgba(34,211,238,.35);transition:.25s}
+.start:hover{transform:translateY(-4px);box-shadow:0 13px 30px rgba(34,211,238,.5)}
+
+main{width:min(1050px,94%);margin:auto;padding:20px 0 80px}
+.scene{
+  min-height:420px; margin:28px 0; padding:28px; border-radius:28px;
+  background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.055));
+  border:1px solid rgba(255,255,255,.16); box-shadow:0 15px 45px rgba(0,0,0,.22);
+  opacity:0; transform:translateY(45px); transition:opacity .7s ease,transform .7s ease;
+  position:relative; overflow:hidden;
+}
+.scene.show{opacity:1;transform:translateY(0)}
+.scene:after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;right:-55px;top:-55px;background:rgba(34,211,238,.1)}
+.scene-number{color:#67e8f9;font-weight:800;font-size:1rem;letter-spacing:.5px}
+.scene h2{font-size:clamp(1.45rem,4vw,2.2rem);margin:7px 0 20px}
+.content{display:grid;grid-template-columns:180px 1fr;gap:22px;align-items:start}
+.icon{
+  height:150px;border-radius:24px;display:flex;align-items:center;justify-content:center;
+  font-size:72px;background:rgba(2,132,199,.15);border:1px solid rgba(125,211,252,.18);
+  animation:float 4s ease-in-out infinite;
+}
+.dialogues{display:flex;flex-direction:column;gap:12px}
+.bubble{padding:13px 17px;border-radius:18px;line-height:1.7;background:rgba(255,255,255,.08);border-left:4px solid #38bdf8}
+.bubble.teacher{border-left-color:#a78bfa;background:rgba(124,58,237,.12)}
+.bubble strong{color:#7dd3fc}
+.teacher strong{color:#c4b5fd}
+.diagram{
+  margin-top:18px;padding:18px;border-radius:20px;text-align:center;
+  background:rgba(0,0,0,.18);font-weight:700;line-height:2.2
+}
+.arrow{color:#67e8f9;font-size:1.5rem}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}
+.chip{padding:8px 12px;border-radius:12px;background:rgba(34,211,238,.12);border:1px solid rgba(34,211,238,.25)}
+.final{
+  text-align:center;padding:55px 22px;margin-top:35px;border-radius:30px;
+  background:linear-gradient(135deg,rgba(14,165,233,.18),rgba(124,58,237,.18));
+  border:1px solid rgba(255,255,255,.18)
+}
+.final h2{font-size:clamp(1.7rem,5vw,3rem);margin-bottom:15px}
+.quote{font-size:1.25rem;line-height:1.8;margin:10px auto;max-width:750px}
+footer{text-align:center;padding:25px;color:#a9c5d8}
+
+.nav{
+ position:fixed;right:18px;bottom:18px;z-index:20;display:flex;gap:8px
+}
+.nav button{
+ width:45px;height:45px;border:0;border-radius:50%;background:#22d3ee;color:#063544;
+ font-size:18px;font-weight:800;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.3)
+}
+.progress{position:fixed;top:0;left:0;height:4px;background:#22d3ee;z-index:30;width:0}
+
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+
+@media(max-width:700px){
+ .content{grid-template-columns:1fr}
+ .icon{height:120px;font-size:58px}
+ .scene{padding:20px;min-height:0}
+ .hero{padding:40px 18px}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+
+<header id="top">
+  <div class="glow g1"></div><div class="glow g2"></div>
+  <section class="hero">
+    <div class="lock">🔐</div>
+    <h1>ક્રિપ્ટોગ્રાફી અને ડેટા સિક્યોરિટી</h1>
+    <div class="subtitle">“ગુપ્ત સંદેશાઓનું ગણિત”</div>
+    <div class="badges">
+      <span class="badge">🧮 ગણિત</span><span class="badge">🔑 Key</span>
+      <span class="badge">🛡️ Data Security</span><span class="badge">🌐 Digital World</span>
+    </div>
+    <a class="start" href="#scene1">વેબટૂન શરૂ કરો ↓</a>
+  </section>
+</header>
+
+<main>
+<section class="scene" id="scene1">
+<div class="scene-number">🎬 દૃશ્ય 1</div><h2>ડિજિટલ દુનિયા</h2>
+<div class="content"><div class="icon">📱🌐</div><div class="dialogues">
+<div class="bubble"><strong>👦 આરવ:</strong> “મીરા, આજકાલ આપણે મોબાઇલથી મેસેજ, ફોટા, પૈસા અને ઘણી બધી માહિતી મોકલીએ છીએ.”</div>
+<div class="bubble"><strong>👧 મીરા:</strong> “હા, પણ આ માહિતી સુરક્ષિત રહે છે કે નહીં?”</div>
+<div class="bubble teacher"><strong>👨‍🏫 શિક્ષક:</strong> “ડિજિટલ માહિતીની સુરક્ષા માટે ક્રિપ્ટોગ્રાફી અને ડેટા સિક્યોરિટીનો ઉપયોગ થાય છે.”</div>
+</div></div></section>
+
+<section class="scene">
+<div class="scene-number">🎬 દૃશ્ય 2</div><h2>ગુપ્ત સંદેશ</h2>
+<div class="content"><div class="icon">💬🔒</div><div class="dialogues">
+<div class="bubble"><strong>👦 આરવ:</strong> “જો મારે મીરાને કોઈ ખાનગી સંદેશ મોકલવો હોય તો?”</div>
+<div class="bubble teacher"><strong>👨‍🏫 શિક્ષક:</strong> “સંદેશને એવી રીતે બદલવામાં આવે છે કે રસ્તામાં કોઈ તેને મેળવી લે તો પણ સરળતાથી તેનો અર્થ સમજી ન શકે.”</div>
+<div class="bubble"><strong>👧 મીરા:</strong> “એટલે સંદેશને એક પ્રકારના ગુપ્ત કોડમાં ફેરવવામાં આવે છે?”</div>
+<div class="bubble teacher"><strong>👨‍🏫 શિક્ષક:</strong> “બિલકુલ!”</div>
+</div></div></section>
+
+<section class="scene">
+<div class="scene-number">🎬 દૃશ્ય 3</div><h2>ક્રિપ્ટોગ્રાફીનો અર્થ</h2>
+<div class="content"><div class="icon">🔐🧮</div><div class="dialogues">
+<div class="bubble teacher"><strong>👨‍🏫 શિક્ષક:</strong> “ક્રિપ્ટોગ્રાફી એટલે માહિતી અને સંદેશાઓને સુરક્ષિત બનાવવા માટે ગણિત અને અલ્ગોરિધમનો ઉપયોગ કરવાની પદ્ધતિ.”</div>
+<div class="diagram">📩 સામાન્ય સંદેશ <span class="arrow">→</span> 🔐 Encryption <span class="arrow">→</span> 🔒 ગુપ્ત સંદેશ<br>🔒 ગુપ્ત સંદેશ <span class="arrow">→</span> 🔑 Decryption <span class="arrow">→</span> 📩 મૂળ સંદેશ</div>
+<div class="bubble"><strong>👦 આરવ:</strong> “વાહ! એટલે સંદેશને તાળું મારીને મોકલવા જેવું!”</div>
+</div></div></section>
+
+<section class="scene">
+<div class="scene-number">🎬 દૃશ્ય 4</div><h2>Encryption શું છે?</h2>
+<div class="content"><div class="icon">🔐➡️💬</div><div class="dialogues">
+<div class="bubble"><strong>👧 મીરા:</strong> “Encryption એટલે શું?”</div>
+<div class="bubble teacher"><strong>👨‍🏫 શિક્ષક:</strong> “મૂળ સંદેશને એવી માહિતીમાં બદલવાની પ્રક્રિયા કે જે સામાન્ય રીતે સમજાય નહીં, તેને Encryption કહે છે.”</div>
+<div class="diagram">💬 મૂળ સંદેશ: <b>HELLO</b><br>⬇️ 🔐 Encryption<br>🔒 Encrypted Example: <b>IFMMP</b></div>
+<div class="bubble"><strong>👦 આરવ:</strong> “હવે HELLO સીધું દેખાતું નથી!”</div>
+<div class="bubble teacher"><strong>👨‍🏫 શિક્ષક:</strong> “હા. આ માત્ર સમજાવવા માટેનું સરળ ઉદાહરણ છે.”</div>
+</div></div></section>
+
+<section class="scene">
+<div class="scene-number">🎬 દૃશ્ય 5</div><h2>Decryption</h2>
+<div class="content"><div class="icon">🔒🔑🔓</div><div class="dialogues">
+<div class="bubble"><strong>👦 આરવ:</strong> “પછી IFMMP ને પાછું HELLO કોણ બનાવશે?”</div>
+<div class="bubble teacher"><strong>👨‍🏫 શિક્ષક:</strong> “યોગ્ય પ્રક્રિયા અને Keyની મદદથી.”</div>
+<div class="diagram">🔒 Encrypted Data<br>⬇️ 🔑 Key<br>🔓 Decryption<br>⬇️<br>💬 Original Data</div>
+<div class="bubble"><strong>👧 મીરા:</strong> “એટલે Decryption એટલે ગુપ્ત માહિતીનું મૂળ સ્વરૂપ પાછું મેળવવું.”</div>
+</div></div></section>
+
+<section class="scene">
+<div class="scene-number">🎬 દૃશ્ય 6</div><h2>Key એટલે ડિજિટલ ચાવી 🔑</h2>
+<div class="content"><div class="icon">🔑</div><div class="dialogues">
+<div class="bubble teacher"><strong>👨‍🏫 શિક્ષક:</strong> “ક્રિપ્ટોગ્રાફીમાં Key ખૂબ મહત્વની છે.”</div>
+<div class="bubble"><strong>👦 આરવ:</strong> “Key એટલે પાસવર્ડ જેવી?”</div>
+<div class="bubble teacher"><strong>👨‍🏫 શિક્ષક:</strong> “કેટલાક સંદર્ભોમાં તેને ચાવી તરીકે સમજી શકાય. Encryption અને Decryptionમાં વપરાતી Keyની રચના પદ્ધતિ પ્રમાણે અલગ હોઈ શકે છે.”</div>
+<div class="diagram">🔑 Key = સુરક્ષાની ચાવી</div>
+<div class="bubble"><strong>👧 મીરા:</strong> “યોગ્ય Key વગર ડેટા સમજવો મુશ્કેલ બની શકે!”</div>
+</div></div></section>
+
+<section class="scene">
+<div class="scene-number">🎬 દૃશ્ય 7</div><h2>ગણિતનો જાદુ 🧮</h2>
+<div class="content"><div class="icon">🧮✨</div><div class="dialogues">
+<div class="bubble"><strong>👦 આરવ:</strong> “પણ ક્રિપ્ટોગ્રાફીમાં ગણિત શા માટે જરૂરી છે?”</div>
+<div class="bubble teacher"><strong>👨‍🏫 શિક્ષક:</strong> “કારણ કે આધુનિક ક્રિપ્ટોગ્રાફીમાં ઘણા જટિલ ગણિતીય સિદ્ધાંતોનો ઉપયોગ થાય છે.”</div>
+<div class="diagram">📊 સંખ્યાઓ ➕ 🧮 ગણિતીય ક્રિયાઓ ➕ 💻 અલ્ગોરિધમ ➕ 🔑 Key<br>⬇️<br>🔐 સુરક્ષિત ડેટા</div>
+</div></div></section>
+
+<section class="scene">
+<div class="scene-number">🎬 દૃશ્ય 8</div><h2>Prime Numbers</h2>
+<div class="content"><div class="icon">🔢⭐</div><div class="dialogues">
+<div class="bubble"><strong>👧 મીરા:</strong> “ગણિતના કયા ભાગનો ઉપયોગ થાય છે?”</div>
+<div class="bubble teacher"><strong>👨‍🏫 શિક્ષક:</strong> “કેટલીક ક્રિપ્ટોગ્રાફિક પદ્ધતિઓમાં Prime Numbers અને અન્ય ગણિતીય રચનાઓ મહત્વપૂર્ણ હોય છે.”</div>
+<div class="bubble"><strong>👦 આરવ:</strong> “Prime Number એટલે જે સંખ્યાને માત્ર 1 અને પોતે જ ભાગે?”</div>
+<div class="bubble teacher"><strong>👨‍🏫 શિક્ષક:</strong> “સાચું. જેમ કે 2, 3, 5, 7, 11 વગેરે.”</div>
+<div class="chips"><span class="chip">2</span><span class="chip">3</span><span class="chip">5</span><span class="chip">7</span><span class="chip">11</span></div>
+</div></div></section>
+
+<section class="scene">
+<div class="scene-number">🎬 દૃશ્ય 9</div><h2>Data Security 🛡️</h2>
+<div class="content"><div class="icon">🛡️💾</div><div class="dialogues">
+<div class="bubble"><strong>👧 મીરા:</strong> “હવે Data Security સમજાવો.”</div>
+<div class="bubble teacher"><strong>👨‍🏫 શિક્ષક:</strong> “ડેટાને અનધિકૃત વ્યક્તિના પ્રવેશ, ચોરી, ફેરફાર, નુકસાન અથવા નાશથી સુરક્ષિત રાખવાની પ્રક્રિયાને Data Security કહેવાય.”</div>
+<div class="chips"><span class="chip">🛡️ Unauthorized Access</span><span class="chip">🔒 Data Theft</span><span class="chip">✏️ Data Modification</span><span class="chip">💾 Data Loss</span></div>
+</div></div></section>
+
+<section class="scene">
+<div class="scene-number">🎬 દૃશ્ય 10</div><h2>CIA Triad</h2>
+<div class="content"><div class="icon">🔐🛡️⚡</div><div class="dialogues">
+<div class="bubble teacher"><strong>👨‍🏫 શિક્ષક:</strong> “Data Securityના ત્રણ મહત્વના આધાર છે.”</div>
+<div class="bubble"><strong>🔐 Confidentiality:</strong> માહિતી માત્ર અધિકૃત વ્યક્તિને મળે.</div>
+<div class="bubble"><strong>🛡️ Integrity:</strong> માહિતીમાં અનધિકૃત ફેરફાર ન થાય.</div>
+<div class="bubble"><strong>⚡ Availability:</strong> જરૂરિયાત સમયે અધિકૃત વ્યક્તિને માહિતી ઉપલબ્ધ રહે.</div>
+<div class="bubble"><strong>👦 આરવ:</strong> “આ ત્રણેય સાથે હોય તો ડેટાની સુરક્ષા વધુ મજબૂત બને!”</div>
+</div></div></section>
+
+<section class="scene">
+<div class="scene-number">🎬 દૃશ્ય 11</div><h2>Password અને Authentication</h2>
+<div class="content"><div class="icon">📱🔑👆</div><div class="dialogues">
+<div class="bubble"><strong>👧 મીરા:</strong> “મોબાઇલમાં Password શા માટે રાખીએ છીએ?”</div>
+<div class="bubble teacher"><strong>👨‍🏫 શિક્ષક:</strong> “તે Authenticationનો એક સામાન્ય ભાગ છે. Authentication એટલે વપરાશકર્તાની ઓળખ ચકાસવી.”</div>
+<div class="chips"><span class="chip">📱 Password</span><span class="chip">🔢 PIN</span><span class="chip">👆 Fingerprint</span><span class="chip">🙂 Face Recognition</span><span class="chip">🔑 Security Key</span></div>
+<div class="bubble"><strong>👦 આરવ:</strong> “એટલે સિસ્ટમ પહેલા પૂછે છે—‘તમે કોણ છો?’”</div>
+<div class="bubble teacher"><strong>👨‍🏫 શિક્ષક:</strong> “બરાબર!”</div>
+</div></div></section>
+
+<section class="scene">
+<div class="scene-number">🎬 દૃશ્ય 12</div><h2>Digital Payment</h2>
+<div class="content"><div class="icon">💳📲🏦</div><div class="dialogues">
+<div class="bubble"><strong>💳 આરવ:</strong> “UPI કે Online Bankingમાં પણ આ સુરક્ષા જરૂરી હશે ને?”</div>
+<div class="bubble teacher"><strong>👨‍🏫 શિક્ષક:</strong> “હા. ડિજિટલ વ્યવહારોમાં સંવેદનશીલ માહિતીની સુરક્ષા ખૂબ મહત્વપૂર્ણ છે.”</div>
+<div class="bubble"><strong>👧 મીરા:</strong> “એટલે આપણું બેંકિંગ ડેટા સુરક્ષિત રાખવામાં પણ સુરક્ષા તકનીકો કામ કરે છે.”</div>
+</div></div></section>
+
+<section class="scene">
+<div class="scene-number">🎬 દૃશ્ય 13</div><h2>Secure Website 🌐</h2>
+<div class="content"><div class="icon">🌐🔐</div><div class="dialogues">
+<div class="bubble"><strong>👦 આરવ:</strong> “Website પર HTTPS કેમ દેખાય છે?”</div>
+<div class="bubble teacher"><strong>👨‍🏫 શિક્ષક:</strong> “HTTPS સુરક્ષિત સંચાર માટે ઉપયોગમાં લેવાતું પ્રોટોકોલ છે. તે વેબ બ્રાઉઝર અને સર્વર વચ્ચેના સંચારને સુરક્ષિત બનાવવા માટે TLS જેવી તકનીકનો ઉપયોગ કરે છે.”</div>
+<div class="diagram">🌐 Browser<br>⬇️ 🔐 Secure Connection<br>⬇️<br>💻 Server</div>
+<div class="bubble"><strong>👧 મીરા:</strong> “એટલે વેબ પર માહિતી મોકલતી વખતે સુરક્ષિત સંચાર મહત્વપૂર્ણ છે!”</div>
+</div></div></section>
+
+<section class="scene">
+<div class="scene-number">🎬 દૃશ્ય 14</div><h2>જો સુરક્ષા ન હોય તો?</h2>
+<div class="content"><div class="icon">⚠️🚨</div><div class="dialogues">
+<div class="bubble"><strong>⚠️ આરવ:</strong> “જો ડેટાની સુરક્ષા ન રાખીએ તો?”</div>
+<div class="bubble teacher"><strong>👨‍🏫 શિક્ષક:</strong> “તો અનધિકૃત વ્યક્તિ માહિતી મેળવી શકે, તેમાં ફેરફાર કરી શકે અથવા તેનો દુરુપયોગ કરી શકે.”</div>
+<div class="chips"><span class="chip">🚨 Data Theft</span><span class="chip">🚨 Unauthorized Access</span><span class="chip">🚨 Data Modification</span><span class="chip">🚨 Privacy Loss</span></div>
+<div class="bubble"><strong>👧 મીરા:</strong> “એટલે ડેટા સુરક્ષા અવગણવી નહીં જોઈએ.”</div>
+</div></div></section>
+
+<section class="scene">
+<div class="scene-number">🎬 દૃશ્ય 15</div><h2>Cryptographyના ઉપયોગો</h2>
+<div class="content"><div class="icon">🔐🌍</div><div class="dialogues">
+<div class="bubble teacher"><strong>👨‍🏫 શિક્ષક:</strong> “ક્રિપ્ટોગ્રાફીનો ઉપયોગ અનેક ક્ષેત્રોમાં થાય છે.”</div>
+<div class="chips">
+<span class="chip">📱 મોબાઇલ એપ્લિકેશન</span><span class="chip">💳 ડિજિટલ પેમેન્ટ</span>
+<span class="chip">🏦 બેંકિંગ</span><span class="chip">🌐 સુરક્ષિત વેબસાઇટ</span>
+<span class="chip">📧 ઈ-મેલ અને સંચાર</span><span class="chip">☁️ Cloud Services</span>
+<span class="chip">🔐 પાસવર્ડ અને ડેટા સુરક્ષા</span>
+</div>
+</div></div></section>
+
+<section class="scene">
+<div class="scene-number">🎬 દૃશ્ય 16</div><h2>અંતિમ સમજણ</h2>
+<div class="content"><div class="icon">💡🔐</div><div class="dialogues">
+<div class="bubble"><strong>👦 આરવ:</strong> “આજે મને સમજાયું કે ક્રિપ્ટોગ્રાફી માત્ર ગુપ્ત કોડ બનાવવાનું નામ નથી.”</div>
+<div class="bubble"><strong>👧 મીરા:</strong> “હા! તેમાં ગણિત, અલ્ગોરિધમ, Key અને સુરક્ષા પદ્ધતિઓનો ઉપયોગ થાય છે.”</div>
+<div class="bubble teacher"><strong>👨‍🏫 શિક્ષક:</strong> “ખૂબ સરસ! ડિજિટલ યુગમાં માહિતીની સુરક્ષા માટે ક્રિપ્ટોગ્રાફી મહત્વપૂર્ણ સાધન છે.”</div>
+</div></div></section>
+
+<section class="final">
+<div style="font-size:65px;animation:pulse 2s infinite">🔐💻🛡️</div>
+<h2>સુરક્ષિત ડિજિટલ દુનિયા</h2>
+<p class="quote">👨‍🏫 “યાદ રાખો—માહિતી જેટલી મહત્વપૂર્ણ છે, તેની સુરક્ષા પણ એટલી જ મહત્વપૂર્ણ છે.”</p>
+<p class="quote">👦 “ગણિતની મદદથી સંદેશને સુરક્ષિત બનાવી શકાય છે!”</p>
+<p class="quote">👧 “અને યોગ્ય Data Securityથી ડિજિટલ માહિતીનું રક્ષણ કરી શકાય છે!”</p>
+<br>
+<h2>🔐 “ક્રિપ્ટોગ્રાફી — ગુપ્ત સંદેશાઓનું ગણિત”</h2>
+<p class="subtitle">💻 “સુરક્ષિત ડેટા = સુરક્ષિત ડિજિટલ દુનિયા”</p>
+</section>
+</main>
+
+<footer>📚 Educational Gujarati Webtoon • Cryptography & Data Security</footer>
+
+<div class="nav">
+<button onclick="window.scrollBy({top:-window.innerHeight*.8,behavior:'smooth'})">↑</button>
+<button onclick="window.scrollBy({top:window.innerHeight*.8,behavior:'smooth'})">↓</button>
+</div>
+
+<script>
+const scenes=document.querySelectorAll('.scene');
+const observer=new IntersectionObserver((entries)=>{
+ entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')})
+},{threshold:.12});
+scenes.forEach(s=>observer.observe(s));
+
+window.addEventListener('scroll',()=>{
+ const h=document.documentElement;
+ const p=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;
+ document.getElementById('progress').style.width=p+'%';
+});
+</script>
+</body>
+</html>
